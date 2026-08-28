@@ -30,7 +30,10 @@ export function PhotoFrame({
       className={`photo-frame photo-frame--${variant} reveal ${className}`}
       style={tilt ? ({ "--tilt": `${tilt}deg` } as React.CSSProperties) : undefined}
     >
-      <div className="photo-frame__box" style={{ aspectRatio: aspectRatio ?? `${photo.width} / ${photo.height}` }}>
+      <div
+        className="photo-frame__box"
+        style={{ aspectRatio: aspectRatio ?? photo.aspectRatio ?? `${photo.width} / ${photo.height}` }}
+      >
         <img
           src={photo.src}
           alt={photo.alt}

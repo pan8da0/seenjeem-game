@@ -19,8 +19,8 @@ SRC = ROOT / "src/assets/images"
 DEST = ROOT / "src/assets/images-web"
 MANIFEST = ROOT / "src/data/imageDimensions.generated.json"
 
-MAX_DIMENSION = 2000
-QUALITY = 82
+MAX_DIMENSION = 1800
+QUALITY = 78
 EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 
 

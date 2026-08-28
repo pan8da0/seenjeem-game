@@ -16,10 +16,15 @@ export interface Photo {
   objectPosition?: string;
   /** Marks a photo for a larger / hero treatment in its chapter. */
   featured?: boolean;
+  /** Overrides the natural aspect ratio, e.g. to crop out a source artifact. */
+  aspectRatio?: string;
 }
 
 type Overrides = Partial<
-  Record<string, Partial<Pick<Photo, "alt" | "caption" | "rotation" | "objectPosition" | "featured">>>
+  Record<
+    string,
+    Partial<Pick<Photo, "alt" | "caption" | "rotation" | "objectPosition" | "featured" | "aspectRatio">>
+  >
 >;
 
 // Hand-authored touches for specific photos. Anything not listed here still
@@ -56,6 +61,59 @@ const overrides: Overrides = {
   "us/leen-us-10": {
     alt: "Leen and friends together in an elevator mirror selfie",
     caption: "one of those days",
+  },
+
+  // These four were screenshotted from a phone carousel view, which baked a
+  // small page-counter badge into the top-right corner of the photo itself.
+  // Cropped a bit off the top here (presentation only — the source file in
+  // src/assets/images/ is untouched) so it doesn't show.
+  "her/leen-her-01": {
+    alt: "Leen smiling in front of an old stone building",
+    aspectRatio: "1169 / 1330",
+    objectPosition: "center 88%",
+  },
+  "her/leen-her-05": {
+    aspectRatio: "1169 / 1330",
+    objectPosition: "center 88%",
+  },
+  "her/leen-her-06": {
+    aspectRatio: "1169 / 1315",
+    objectPosition: "center 88%",
+  },
+  "her/leen-her-07": {
+    aspectRatio: "1169 / 1090",
+    objectPosition: "center 96%",
+  },
+  "her/leen-her-08": {
+    alt: "Leen smiling at an illuminated night market",
+    aspectRatio: "1169 / 1140",
+    objectPosition: "center 60%",
+  },
+  "her/leen-her-02": {
+    alt: "Leen sitting by an ornate iron gate with a red flower in her hair",
+    caption: "pretty girl.",
+  },
+  "her/leen-her-11": {
+    alt: "Black and white portrait of Leen wearing sunglasses and hair curlers",
+    featured: true,
+    caption: "favorite.",
+  },
+  "her/leen-her-16": {
+    alt: "Leen laughing, relaxed on a couch",
+    caption: "this one. 🤍",
+  },
+
+  "funny/leen-funny-02": {
+    alt: "Leen laughing with her hands on her cheeks",
+    caption: "Lolo pls 😭",
+  },
+  "funny/leen-funny-06": {
+    alt: "Leen laughing on a couch with her legs kicked up",
+    caption: "iconic.",
+  },
+  "funny/leen-funny-08": {
+    alt: "Leen asleep and squished against a plane window",
+    caption: "caught in 4k",
   },
 };
 
@@ -94,6 +152,7 @@ function toPhoto(path: string, src: string): Photo | null {
     rotation: meta?.rotation,
     objectPosition: meta?.objectPosition ?? (category === "childhood" ? "center 64%" : "center"),
     featured: meta?.featured ?? false,
+    aspectRatio: meta?.aspectRatio,
   };
 }
 
@@ -112,15 +171,16 @@ export const usPhotos = getPhotos("us");
 export const herPhotos = getPhotos("her");
 
 /**
- * Picks a closing photo for the ending chapter. Prefers a featured "her"
- * portrait (the nicest shot of Leen), then a featured "us" photo, then
- * simply the first available photo in a sensible fallback order — so the
- * ending always has something beautiful to show, even before every
- * category is filled in.
+ * Picks a closing photo for the ending chapter. Deliberately avoids
+ * reusing the "her" chapter's featured hero photo, so the ending feels
+ * like a new beautiful moment rather than a repeat. Falls back through
+ * "her" -> "us" -> "childhood" -> "funny" so the ending always has
+ * something to show, even before every category is filled in.
  */
 export function getEndingPhoto(): Photo | undefined {
+  const heroId = herPhotos.find((p) => p.featured)?.id;
   return (
-    herPhotos.find((p) => p.featured) ??
+    herPhotos.find((p) => p.id !== heroId) ??
     herPhotos[0] ??
     usPhotos.find((p) => p.featured) ??
     usPhotos[0] ??

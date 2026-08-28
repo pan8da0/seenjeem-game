@@ -1,59 +1,171 @@
 {
   "childhood/leen-childhood-01.jpg": {
-    "height": 2000,
-    "width": 924
+    "height": 1800,
+    "width": 832
   },
   "childhood/leen-childhood-02.jpg": {
-    "height": 2000,
-    "width": 924
+    "height": 1800,
+    "width": 832
   },
   "childhood/leen-childhood-03.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   },
   "childhood/leen-childhood-04.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   },
   "childhood/leen-childhood-05.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   },
   "childhood/leen-childhood-06.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   },
   "childhood/leen-childhood-07.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   },
   "childhood/leen-childhood-08-collage.jpg": {
-    "height": 2000,
-    "width": 924
+    "height": 1800,
+    "width": 832
+  },
+  "funny/leen-funny-01.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "funny/leen-funny-02.jpg": {
+    "height": 1800,
+    "width": 1012
+  },
+  "funny/leen-funny-03.jpg": {
+    "height": 1104,
+    "width": 828
+  },
+  "funny/leen-funny-04.jpg": {
+    "height": 1800,
+    "width": 1020
+  },
+  "funny/leen-funny-05.jpg": {
+    "height": 1800,
+    "width": 1012
+  },
+  "funny/leen-funny-06.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "funny/leen-funny-07.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "funny/leen-funny-08.jpg": {
+    "height": 1350,
+    "width": 1800
+  },
+  "her/leen-her-01.jpg": {
+    "height": 1567,
+    "width": 1169
+  },
+  "her/leen-her-02.jpg": {
+    "height": 1800,
+    "width": 1020
+  },
+  "her/leen-her-03.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-04.jpg": {
+    "height": 1800,
+    "width": 1009
+  },
+  "her/leen-her-05.jpg": {
+    "height": 1565,
+    "width": 1169
+  },
+  "her/leen-her-06.jpg": {
+    "height": 1547,
+    "width": 1169
+  },
+  "her/leen-her-07.jpg": {
+    "height": 1347,
+    "width": 1169
+  },
+  "her/leen-her-08.jpg": {
+    "height": 1631,
+    "width": 1169
+  },
+  "her/leen-her-09.jpg": {
+    "height": 1033,
+    "width": 1800
+  },
+  "her/leen-her-10.jpg": {
+    "height": 1800,
+    "width": 1020
+  },
+  "her/leen-her-11.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-12.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-13.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-14.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-15.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-16.jpg": {
+    "height": 1800,
+    "width": 1350
+  },
+  "her/leen-her-17.jpg": {
+    "height": 1560,
+    "width": 721
+  },
+  "her/leen-her-18.jpg": {
+    "height": 1800,
+    "width": 1010
+  },
+  "her/leen-her-19.jpg": {
+    "height": 1800,
+    "width": 1023
+  },
+  "her/leen-her-20.jpg": {
+    "height": 1800,
+    "width": 1018
   },
   "us/leen-us-01.jpg": {
-    "height": 1500,
-    "width": 2000
+    "height": 1350,
+    "width": 1800
   },
   "us/leen-us-02.jpg": {
-    "height": 1500,
-    "width": 2000
+    "height": 1350,
+    "width": 1800
   },
   "us/leen-us-03.jpg": {
-    "height": 1500,
-    "width": 2000
+    "height": 1350,
+    "width": 1800
   },
   "us/leen-us-04.jpg": {
-    "height": 1500,
-    "width": 2000
+    "height": 1350,
+    "width": 1800
   },
   "us/leen-us-05.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   },
   "us/leen-us-06.jpg": {
-    "height": 2000,
-    "width": 1500
+    "height": 1800,
+    "width": 1350
   },
   "us/leen-us-07.jpg": {
     "height": 1104,
@@ -68,7 +180,7 @@
     "width": 828
   },
   "us/leen-us-10.jpg": {
-    "height": 2000,
-    "width": 1125
+    "height": 1800,
+    "width": 1012
   }
 }
