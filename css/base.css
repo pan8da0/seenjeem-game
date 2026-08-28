@@ -1,0 +1,412 @@
+/* ==========================================================================
+   Eshtebak (اشتباك) — design tokens + base styles shared by every page.
+   Layout uses CSS logical properties throughout so RTL (Arabic) and LTR
+   (English) both work correctly from the same rules.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand palette — deep, premium, high-contrast for TV viewing distance */
+  --color-bg: #0A0E1B;
+  --color-bg-glow-1: #1B1440;
+  --color-bg-glow-2: #0E2A3A;
+  --color-surface: #161C33;
+  --color-surface-2: #1E2544;
+  --color-surface-3: #262E52;
+  --color-border: #2C3560;
+  --color-border-soft: #232B4D;
+  --color-text: #F5F7FF;
+  --color-text-muted: #A6AFD6;
+  --color-text-faint: #6E77A3;
+
+  --color-primary: #7C5CFF;
+  --color-primary-dark: #5E3EE8;
+  --color-primary-tint: #2A2160;
+  --color-accent: #FFB238;
+  --color-accent-dark: #E89416;
+  --color-team1: #22D3EE;
+  --color-team1-dark: #0EA5C0;
+  --color-team2: #FB7185;
+  --color-team2-dark: #E14D63;
+  --color-success: #34D399;
+  --color-success-dark: #189968;
+  --color-danger: #F8717A;
+  --color-danger-dark: #E23E4C;
+
+  --color-on-primary: #0A0E1B;
+  --color-on-accent: #241400;
+
+  --font-display: 'Baloo Bhaijaan 2', 'Segoe UI', sans-serif;
+  --font-body: 'Cairo', 'Segoe UI', sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 2px 8px rgba(4, 6, 16, 0.35);
+  --shadow-md: 0 8px 24px rgba(4, 6, 16, 0.45);
+  --shadow-lg: 0 16px 48px rgba(4, 6, 16, 0.55);
+  --shadow-glow-primary: 0 0 0 1px rgba(124, 92, 255, 0.4), 0 8px 32px rgba(124, 92, 255, 0.25);
+  --shadow-glow-accent: 0 0 0 1px rgba(255, 178, 56, 0.5), 0 8px 32px rgba(255, 178, 56, 0.25);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 250ms var(--ease-out);
+  --transition-slow: 400ms var(--ease-out);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --transition-fast: 0ms; --transition-base: 0ms; --transition-slow: 0ms; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* The native [hidden] attribute must always win over component display
+   rules (.btn, .modal-overlay, etc.) regardless of selector specificity. */
+[hidden] { display: none !important; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, var(--color-bg-glow-1) 0%, transparent 60%),
+    radial-gradient(1000px 600px at 110% 10%, var(--color-bg-glow-2) 0%, transparent 55%),
+    var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+
+p { margin: 0; }
+
+img { max-width: 100%; display: block; }
+
+button, input, select, textarea { font-family: inherit; color: inherit; }
+
+a { color: inherit; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--color-primary); color: #fff; }
+
+/* Focus visibility for keyboard users, on top of any hover styling */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.9em 1.6em;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), opacity var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+  box-shadow: var(--shadow-glow-primary);
+}
+.btn--primary:hover:not(:disabled) { box-shadow: var(--shadow-glow-primary), var(--shadow-md); transform: translateY(-2px); }
+
+.btn--accent {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow-glow-accent);
+}
+.btn--accent:hover:not(:disabled) { box-shadow: var(--shadow-glow-accent), var(--shadow-md); transform: translateY(-2px); }
+
+.btn--secondary {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+.btn--secondary:hover:not(:disabled) { background: var(--color-surface-3); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+.btn--ghost:hover:not(:disabled) { color: var(--color-text); border-color: var(--color-text-faint); }
+
+.btn--danger {
+  background: linear-gradient(135deg, var(--color-danger), var(--color-danger-dark));
+  color: #fff;
+}
+
+.btn--lg { padding: 1.1em 2em; font-size: 1.2rem; border-radius: var(--radius-lg); }
+.btn--xl { padding: 1.3em 2.4em; font-size: 1.4rem; border-radius: var(--radius-lg); }
+.btn--sm { padding: 0.6em 1.1em; font-size: 0.85rem; border-radius: var(--radius-sm); }
+.btn--full { width: 100%; }
+.btn--icon { padding: 0.7em; border-radius: var(--radius-full); }
+
+.btn-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Form controls ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: start;
+}
+.field label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+.input, select.input, textarea.input {
+  background: var(--color-surface-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.85em 1.1em;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+.input:focus, select.input:focus, textarea.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.25);
+}
+.input::placeholder { color: var(--color-text-faint); }
+
+/* ---------- Badges ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.35em 0.85em;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+/* ---------- Icon sizing helper ---------- */
+.icon { flex-shrink: 0; }
+
+/* ---------- Directional (chevron) icon mirroring ----------
+   A plain chevron means "forward" (deeper into this action): it points
+   right in LTR and auto-mirrors to point left in RTL. [data-icon-flip]
+   means the opposite semantic — "back" — so its mirroring is inverted. */
+html[dir="rtl"] [data-icon="chevron"]:not([data-icon-flip]) svg { transform: scaleX(-1); }
+[data-icon-flip] svg { transform: scaleX(-1); }
+html[dir="rtl"] [data-icon-flip] svg { transform: scaleX(1); }
+
+/* ---------- Top bar language switch (shared) ---------- */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  gap: 2px;
+}
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.5em 1em;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.lang-switch button.is-active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Icon button (settings gear etc.) ---------- */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.icon-btn:hover { background: var(--color-surface-3); }
+.icon-btn:active { transform: scale(0.93); }
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 8, 18, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  z-index: 1000;
+  animation: fadeIn var(--transition-base);
+}
+.modal-overlay[hidden] { display: none; }
+.modal-overlay--closing { animation: fadeOut var(--transition-fast); }
+.modal-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-6);
+  max-width: 480px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  animation: popIn var(--transition-base);
+}
+.modal-box--wide { max-width: 720px; }
+.modal-title { font-size: 1.4rem; margin-bottom: var(--space-3); }
+.modal-message { color: var(--color-text-muted); margin-bottom: var(--space-5); }
+.modal-actions { display: flex; gap: var(--space-3); justify-content: flex-end; flex-wrap: wrap; }
+.modal-close {
+  position: absolute;
+  inset-inline-end: var(--space-4);
+  inset-block-start: var(--space-4);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes popIn { from { opacity: 0; transform: scale(0.92) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  inset-inline: 0;
+  bottom: var(--space-6);
+  margin-inline: auto;
+  width: fit-content;
+  max-width: 90vw;
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 0.9em 1.6em;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  z-index: 1200;
+}
+.toast--visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Confetti ---------- */
+.confetti-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1500;
+}
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  opacity: 0.9;
+  animation-name: confetti-fall;
+  animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) translateX(var(--drift)) rotate(var(--rotate)); opacity: 0.2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti-layer { display: none; }
+}
+
+/* ---------- Scrollbar polish (webkit) ---------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: var(--radius-full); }
+
+/* ---------- Responsive helpers ---------- */
+@media (max-width: 640px) {
+  .container { padding-inline: var(--space-4); }
+}

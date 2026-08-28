@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="adminTitle">لوحة الإدارة</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<div class="admin-shell">
+
+  <header class="admin-topbar">
+    <a href="game.html" class="icon-btn" data-icon="chevron" data-icon-flip aria-label="Back" data-i18n-aria-label="adminBackToGame"></a>
+    <div>
+      <h1 data-i18n="adminTitle">لوحة الإدارة</h1>
+      <p class="muted" data-i18n="adminSubtitle">إدارة الفئات والأسئلة محليًا على هذا المتصفح</p>
+    </div>
+    <div class="lang-switch lang-switch--sm" id="lang-switch">
+      <button type="button" data-lang="ar">ع</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <div class="admin-notice" data-i18n="adminStorageNotice">
+    تُحفظ كل التعديلات في متصفحك فقط (LocalStorage). لنشرها للجميع يجب تصدير JSON واستبدال ملفات مجلد data يدويًا — راجع README.
+  </div>
+
+  <nav class="admin-tabs" role="tablist">
+    <button type="button" class="admin-tab is-active" data-tab="categories" data-i18n="adminCategoriesTab">الفئات</button>
+    <button type="button" class="admin-tab" data-tab="questions" data-i18n="adminQuestionsTab">الأسئلة</button>
+    <button type="button" class="admin-tab" data-tab="import-export" data-i18n="adminImportExportTab">استيراد / تصدير</button>
+  </nav>
+
+  <main class="admin-main container">
+
+    <!-- Categories tab -->
+    <section class="admin-panel is-active" id="panel-categories">
+      <div class="admin-toolbar">
+        <div class="search-box">
+          <span data-icon="search" data-icon-size="18"></span>
+          <input type="text" class="input" id="category-admin-search" data-i18n-placeholder="search">
+        </div>
+        <button type="button" class="btn btn--primary" id="btn-add-category">
+          <span data-icon="plus" data-icon-size="18"></span>
+          <span data-i18n="adminAddCategory">إضافة فئة</span>
+        </button>
+      </div>
+      <div class="admin-list" id="category-list"></div>
+    </section>
+
+    <!-- Questions tab -->
+    <section class="admin-panel" id="panel-questions">
+      <div class="admin-toolbar">
+        <select class="input" id="question-category-select"></select>
+        <div class="search-box">
+          <span data-icon="search" data-icon-size="18"></span>
+          <input type="text" class="input" id="question-admin-search" data-i18n-placeholder="adminSearchQuestions">
+        </div>
+        <button type="button" class="btn btn--primary" id="btn-add-question">
+          <span data-icon="plus" data-icon-size="18"></span>
+          <span data-i18n="adminAddQuestion">إضافة سؤال</span>
+        </button>
+      </div>
+      <div class="admin-list" id="question-list"></div>
+    </section>
+
+    <!-- Import / Export tab -->
+    <section class="admin-panel" id="panel-import-export">
+      <div class="card admin-io-card">
+        <h3 id="stats-line"></h3>
+        <div class="btn-row">
+          <button type="button" class="btn btn--accent" id="btn-export-json">
+            <span data-icon="download" data-icon-size="18"></span>
+            <span data-i18n="adminExportJson">تصدير JSON</span>
+          </button>
+          <label class="btn btn--secondary" for="import-file-input">
+            <span data-icon="upload" data-icon-size="18"></span>
+            <span data-i18n="adminImportJson">استيراد JSON</span>
+          </label>
+          <input type="file" id="import-file-input" accept="application/json" hidden>
+        </div>
+        <p class="import-warning" data-i18n="adminImportWarning"></p>
+      </div>
+
+      <div class="card admin-io-card">
+        <button type="button" class="btn btn--danger" id="btn-reset-defaults" data-i18n="adminResetToDefaults">استرجاع البيانات الأصلية</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Category form modal -->
+<div class="modal-overlay" id="modal-category-form" hidden>
+  <div class="modal-box modal-box--wide" role="dialog" aria-modal="true">
+    <button type="button" class="icon-btn modal-close" data-close-modal="modal-category-form" data-icon="close" data-icon-size="18" aria-label="Close" data-i18n-aria-label="close"></button>
+    <h3 class="modal-title" id="category-form-title"></h3>
+    <form id="category-form" class="admin-form">
+      <div class="field">
+        <label data-i18n="adminCategoryId">المعرّف (id)</label>
+        <input type="text" class="input" id="cat-field-id" placeholder="football">
+      </div>
+      <div class="admin-form-row">
+        <div class="field">
+          <label data-i18n="adminCategoryNameAr">الاسم بالعربية</label>
+          <input type="text" class="input" id="cat-field-name-ar" required>
+        </div>
+        <div class="field">
+          <label data-i18n="adminCategoryNameEn">الاسم بالإنجليزية</label>
+          <input type="text" class="input" id="cat-field-name-en" required>
+        </div>
+      </div>
+      <div class="admin-form-row">
+        <div class="field">
+          <label data-i18n="adminCategoryDescAr">الوصف بالعربية</label>
+          <input type="text" class="input" id="cat-field-desc-ar">
+        </div>
+        <div class="field">
+          <label data-i18n="adminCategoryDescEn">الوصف بالإنجليزية</label>
+          <input type="text" class="input" id="cat-field-desc-en">
+        </div>
+      </div>
+      <div class="admin-form-row">
+        <div class="field">
+          <label data-i18n="adminCategoryColor">اللون</label>
+          <div class="color-field">
+            <input type="color" id="cat-field-color-picker" value="#7C5CFF">
+            <input type="text" class="input" id="cat-field-color-hex" value="#7C5CFF">
+          </div>
+        </div>
+        <div class="field">
+          <label data-i18n="adminCategoryIcon">الأيقونة</label>
+          <select class="input" id="cat-field-icon"></select>
+        </div>
+      </div>
+      <div class="category-preview-row">
+        <span id="cat-preview-icon" class="category-preview-badge"></span>
+        <span id="cat-preview-name" class="category-preview-name"></span>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-category-form" data-i18n="cancel">إلغاء</button>
+        <button type="submit" class="btn btn--primary" data-i18n="save">حفظ</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Question form modal -->
+<div class="modal-overlay" id="modal-question-form" hidden>
+  <div class="modal-box modal-box--wide" role="dialog" aria-modal="true">
+    <button type="button" class="icon-btn modal-close" data-close-modal="modal-question-form" data-icon="close" data-icon-size="18" aria-label="Close" data-i18n-aria-label="close"></button>
+    <h3 class="modal-title" id="question-form-title"></h3>
+    <form id="question-form" class="admin-form">
+      <div class="field">
+        <label data-i18n="adminQuestionText">نص السؤال</label>
+        <textarea class="input" id="q-field-text" rows="2" required></textarea>
+      </div>
+      <div class="field">
+        <label data-i18n="adminAnswerText">نص الإجابة</label>
+        <textarea class="input" id="q-field-answer" rows="2" required></textarea>
+      </div>
+      <div class="admin-form-row">
+        <div class="field">
+          <label data-i18n="adminDifficulty">الصعوبة</label>
+          <select class="input" id="q-field-difficulty">
+            <option value="easy" data-i18n="adminDifficultyEasy">سهل (100)</option>
+            <option value="medium" data-i18n="adminDifficultyMedium">متوسط (200)</option>
+            <option value="hard" data-i18n="adminDifficultyHard">صعب (300)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="adminImagePath">مسار الصورة (اختياري)</label>
+          <input type="text" class="input" id="q-field-image" placeholder="images/questions/example.jpg">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" id="btn-preview-question" data-i18n="adminPreview">معاينة</button>
+        <button type="button" class="btn btn--ghost" data-close-modal="modal-question-form" data-i18n="cancel">إلغاء</button>
+        <button type="submit" class="btn btn--primary" data-i18n="save">حفظ</button>
+      </div>
+    </form>
+    <div class="question-preview-box" id="question-preview-box" hidden></div>
+  </div>
+</div>
+
+<script src="js/core/storage.js"></script>
+<script src="js/core/translations.js"></script>
+<script src="js/core/i18n.js"></script>
+<script src="js/core/icons.js"></script>
+<script src="js/core/audio.js"></script>
+<script src="js/core/ui.js"></script>
+<script src="js/core/gameEngine.js"></script>
+<script src="data/categories.js"></script>
+<script src="data/questions/football.js"></script>
+<script src="data/questions/capitals.js"></script>
+<script src="data/questions/history.js"></script>
+<script src="data/questions/geography.js"></script>
+<script src="data/questions/islamic.js"></script>
+<script src="data/questions/quran.js"></script>
+<script src="data/questions/prophet_biography.js"></script>
+<script src="data/questions/companions.js"></script>
+<script src="data/questions/science.js"></script>
+<script src="data/questions/human_body.js"></script>
+<script src="data/questions/space.js"></script>
+<script src="data/questions/animals.js"></script>
+<script src="data/questions/technology.js"></script>
+<script src="data/questions/inventions.js"></script>
+<script src="data/questions/arab_cities.js"></script>
+<script src="data/questions/food.js"></script>
+<script src="data/questions/general_knowledge.js"></script>
+<script src="data/questions/riddles.js"></script>
+<script src="data/questions/landmarks.js"></script>
+<script src="data/questions/civilizations.js"></script>
+<script src="data/questions/sports_general.js"></script>
+<script src="js/core/catalog.js"></script>
+<script src="js/pages/admin.js"></script>
+</body>
+</html>

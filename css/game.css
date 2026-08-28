@@ -1,0 +1,453 @@
+/* ==========================================================================
+   Game page — team setup, category select, board, question, winner
+   ========================================================================== */
+
+.game-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 14, 27, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+.game-topbar-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+.game-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.lang-switch--sm button { padding: 0.4em 0.8em; font-size: 0.75rem; }
+
+.game-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.view { animation: view-in var(--transition-slow); }
+@keyframes view-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.container--narrow { max-width: 620px; }
+
+.muted { color: var(--color-text-muted); margin-top: var(--space-2); }
+
+/* ---------- Team setup ---------- */
+.team-setup { padding-block: var(--space-7); }
+.team-setup h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); text-align: center; }
+.team-setup .muted { text-align: center; }
+
+.team-setup-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: var(--space-4);
+  margin-block: var(--space-6);
+}
+.team-field--1 .input { border-color: var(--color-team1); }
+.team-field--2 .input { border-color: var(--color-team2); }
+.team-vs-badge {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text-faint);
+  padding-bottom: 0.9em;
+}
+
+@media (max-width: 560px) {
+  .team-setup-grid { grid-template-columns: 1fr; }
+  .team-vs-badge { justify-self: center; padding-block: var(--space-1); }
+}
+
+/* ---------- Categories ---------- */
+.categories-view { padding-block: var(--space-6) var(--space-8); }
+.categories-view h2 { text-align: center; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.categories-view > .container > .muted { text-align: center; }
+
+.categories-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block: var(--space-5);
+  flex-wrap: wrap;
+}
+.search-box {
+  flex: 1;
+  min-width: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-box span[data-icon] {
+  position: absolute;
+  inset-inline-start: 1em;
+  color: var(--color-text-faint);
+  display: flex;
+}
+.search-box .input { padding-inline-start: 2.6em; }
+.selected-count-badge {
+  font-size: 0.95rem;
+  padding: 0.6em 1.2em;
+  white-space: nowrap;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.category-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  text-align: start;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  overflow: hidden;
+}
+.category-card::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0; inset-inline: 0;
+  height: 4px;
+  background: var(--cat-color, var(--color-primary));
+}
+.category-card:hover:not(:disabled) { transform: translateY(-3px); border-color: var(--cat-color, var(--color-primary)); }
+.category-card:active:not(:disabled) { transform: translateY(-1px) scale(0.99); }
+.category-card.is-selected {
+  border-color: var(--cat-color, var(--color-primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat-color, var(--color-primary)) 35%, transparent), var(--shadow-md);
+}
+.category-card.is-disabled, .category-card:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.category-card-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--cat-color, var(--color-primary));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+.category-card-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+.category-card-desc { color: var(--color-text-muted); font-size: 0.85rem; line-height: 1.5; }
+.category-card-count { color: var(--color-text-faint); font-size: 0.75rem; font-weight: 600; }
+.category-card-check {
+  position: absolute;
+  inset-inline-end: var(--space-3);
+  inset-block-start: var(--space-3);
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--cat-color, var(--color-primary));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all var(--transition-fast);
+}
+.category-card.is-selected .category-card-check { opacity: 1; transform: scale(1); }
+
+.empty-note { grid-column: 1 / -1; text-align: center; color: var(--color-text-muted); padding: var(--space-6); }
+
+.categories-footer {
+  position: sticky;
+  bottom: 0;
+  padding-block: var(--space-4);
+  background: linear-gradient(to top, var(--color-bg) 60%, transparent);
+}
+
+/* ---------- Board ---------- */
+.board-view { padding-block: var(--space-5) var(--space-8); }
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+.team-score { text-align: center; }
+.team-score-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 2.6vw, 1.4rem);
+  overflow-wrap: anywhere;
+}
+.team-score--1 .team-score-name { color: var(--color-team1); }
+.team-score--2 .team-score-name { color: var(--color-team2); }
+.team-score-points {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 800;
+  margin-top: var(--space-1);
+}
+.vs-badge {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text-faint);
+  font-size: 1.1rem;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-full);
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.board-toolbar { display: flex; justify-content: flex-end; margin-block: var(--space-3); }
+
+.board-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.board-category {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+.board-category-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  color: var(--cat-color, var(--color-text));
+}
+.board-category-icon {
+  width: 34px; height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--cat-color, var(--color-primary));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.board-category-questions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+.board-question {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  padding: 0.85em 0.5em;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--cat-color, var(--color-border));
+  background: color-mix(in srgb, var(--cat-color, var(--color-primary)) 16%, var(--color-surface));
+  color: var(--color-text);
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+  min-height: 56px;
+}
+.board-question:hover:not(:disabled) { transform: translateY(-2px); background: color-mix(in srgb, var(--cat-color, var(--color-primary)) 30%, var(--color-surface)); }
+.board-question:disabled, .board-question.is-used {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: var(--color-surface-2);
+  border-color: var(--color-border);
+  text-decoration: line-through;
+}
+.board-question-dot {
+  position: absolute;
+  inset-inline-end: 6px;
+  inset-block-start: 6px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.board-question-dot--team1 { background: var(--color-team1); }
+.board-question-dot--team2 { background: var(--color-team2); }
+.board-question-dot--none { background: var(--color-text-faint); }
+
+/* ---------- Question ---------- */
+.question-view { padding-block: var(--space-6) var(--space-8); }
+.question-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+.question-category-badge, .question-points-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.55em 1em;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.question-category-badge {
+  background: color-mix(in srgb, var(--cat-color, var(--color-primary)) 22%, var(--color-surface));
+  color: var(--cat-color, var(--color-text));
+  border: 1px solid var(--cat-color, var(--color-border));
+}
+.question-category-badge span[id="question-category-icon"] { display: flex; }
+.question-points-badge {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.question-timer {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--space-2);
+}
+.timer-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+.timer-ring-track {
+  fill: none;
+  stroke: var(--color-surface-2);
+  stroke-width: 10;
+}
+.timer-ring-progress {
+  fill: none;
+  stroke: var(--cat-color, var(--color-accent));
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 339.292;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 220ms linear, stroke var(--transition-base);
+}
+.timer-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+}
+.timer-status-label {
+  text-align: center;
+  color: var(--color-danger);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-top: var(--space-2);
+}
+
+.timer-toggle-btn {
+  display: flex;
+  margin: 0 auto var(--space-5);
+}
+
+.question-body {
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+.question-text {
+  font-size: clamp(1.3rem, 3.4vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+.question-image {
+  margin: var(--space-5) auto 0;
+  border-radius: var(--radius-md);
+  max-height: 320px;
+  object-fit: contain;
+}
+
+.question-actions { margin-bottom: var(--space-5); }
+
+.answer-card { padding: var(--space-5); text-align: center; margin-bottom: var(--space-4); border-color: var(--color-success); }
+.answer-label { color: var(--color-text-muted); font-weight: 700; margin-bottom: var(--space-2); font-size: 0.9rem; }
+.answer-text { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 800; color: var(--color-success); }
+
+.who-answered-label { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-3); font-weight: 600; }
+
+.scoring-buttons { display: flex; flex-direction: column; gap: var(--space-3); }
+.btn--team1 { background: linear-gradient(135deg, var(--color-team1), var(--color-team1-dark)); color: #06222a; }
+.btn--team2 { background: linear-gradient(135deg, var(--color-team2), var(--color-team2-dark)); color: #2a0a10; }
+
+/* ---------- Winner ---------- */
+.winner-view {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-8);
+}
+.winner-view .container { text-align: center; }
+.winner-trophy {
+  width: 96px; height: 96px;
+  margin: 0 auto var(--space-4);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  color: var(--color-on-accent);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-glow-accent);
+}
+.winner-title { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-bottom: var(--space-4); }
+.winner-team-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-team1), var(--color-team2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.winner-team-points {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-top: var(--space-2);
+}
+.winner-other-score { color: var(--color-text-muted); margin-top: var(--space-3); }
+.winner-actions { justify-content: center; margin-top: var(--space-7); }
+
+/* ---------- TV / large screens: wider board, bigger board buttons ---------- */
+@media (min-width: 1200px) {
+  .board-question { font-size: 1.35rem; min-height: 64px; }
+  .team-score-points { font-size: 3rem; }
+  .question-text { font-size: 2.1rem; }
+}
+
+/* ---------- Very large screens (TV at typical viewing distance) ---------- */
+@media (min-width: 1600px) {
+  .container--narrow { max-width: 900px; }
+  .question-timer { width: 200px; height: 200px; }
+  .timer-number { font-size: 3.8rem; }
+  .timer-toggle-btn { font-size: 1.1rem; padding: 0.9em 1.6em; }
+  .question-category-badge, .question-points-badge { font-size: 1.2rem; padding: 0.7em 1.3em; }
+  .question-body { padding: var(--space-8); }
+  .question-text { font-size: 2.6rem; }
+  .answer-text { font-size: 2.1rem; }
+  .who-answered-label { font-size: 1.2rem; }
+  .scoring-buttons .btn { font-size: 1.3rem; padding: 1em 1.6em; }
+  .board-categories { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .board-question { font-size: 1.6rem; min-height: 76px; }
+  .board-category-header { font-size: 1.15rem; }
+  .winner-title { font-size: 3.2rem; }
+  .winner-team-name { font-size: 3rem; }
+}

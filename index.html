@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-i18n="appName">اشتباك</title>
+<meta name="description" content="اشتباك — لعبة أسئلة وأجوبة عربية ممتعة لفريقين، مثالية للعب مع العائلة والأصدقاء. بدون تسجيل، مجانية بالكامل.">
+<meta name="theme-color" content="#0A0E1B">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+<div class="home-shell">
+
+  <header class="home-topbar">
+    <div class="lang-switch" id="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="ar">العربية</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <div class="brand-block">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 18 L46 50 L8 82 L24 50 Z" fill="#FFFFFF"/>
+          <path d="M92 18 L54 50 L92 82 L76 50 Z" fill="#FFD166"/>
+          <circle cx="50" cy="50" r="6.5" fill="#FFFFFF"/>
+        </svg>
+      </div>
+      <h1 class="brand-title" data-i18n="appName">اشتباك</h1>
+      <p class="brand-tagline" data-i18n="appTagline">تحدي الفريقين</p>
+      <p class="made-for-jana">Made for Jana</p>
+    </div>
+
+    <nav class="home-actions" aria-label="Main menu">
+      <button type="button" class="btn btn--primary btn--xl" id="btn-new-game">
+        <span class="btn-label" data-i18n="homeNewGame">ابدأ لعبة جديدة</span>
+        <span class="btn-icon-leading" data-icon="chevron"></span>
+      </button>
+      <button type="button" class="btn btn--accent btn--lg" id="btn-continue-game" hidden>
+        <span class="btn-label" data-i18n="homeContinueGame">متابعة اللعبة السابقة</span>
+        <span class="btn-icon-leading" data-icon="chevron"></span>
+      </button>
+      <button type="button" class="btn btn--secondary btn--lg" id="btn-how-to-play">
+        <span class="btn-label" data-i18n="homeHowToPlay">طريقة اللعب</span>
+        <span class="btn-icon-leading" data-icon="chevron"></span>
+      </button>
+      <button type="button" class="btn btn--secondary btn--lg" id="btn-settings">
+        <span class="btn-label" data-i18n="homeSettings">الإعدادات</span>
+        <span class="btn-icon-leading" data-icon="settings"></span>
+      </button>
+    </nav>
+  </main>
+
+  <footer class="home-footer">
+    <a href="admin.html" data-i18n="homeAdmin">لوحة الإدارة</a>
+  </footer>
+</div>
+
+<!-- How to play modal -->
+<div class="modal-overlay" id="modal-how-to-play" hidden>
+  <div class="modal-box modal-box--wide" role="dialog" aria-modal="true" aria-labelledby="htp-title">
+    <button type="button" class="icon-btn modal-close" data-close-modal="modal-how-to-play" data-icon="close" data-icon-size="18" aria-label="Close" data-i18n-aria-label="close"></button>
+    <h3 class="modal-title" id="htp-title" data-i18n="howToPlayTitle">طريقة اللعب</h3>
+    <div class="htp-steps">
+      <div class="htp-step">
+        <span class="htp-step-icon" data-icon="companions" data-icon-size="22"></span>
+        <div><h4 data-i18n="howToPlayStep1Title"></h4><p data-i18n="howToPlayStep1Body"></p></div>
+      </div>
+      <div class="htp-step">
+        <span class="htp-step-icon" data-icon="search" data-icon-size="22"></span>
+        <div><h4 data-i18n="howToPlayStep2Title"></h4><p data-i18n="howToPlayStep2Body"></p></div>
+      </div>
+      <div class="htp-step">
+        <span class="htp-step-icon" data-icon="general_knowledge" data-icon-size="22"></span>
+        <div><h4 data-i18n="howToPlayStep3Title"></h4><p data-i18n="howToPlayStep3Body"></p></div>
+      </div>
+      <div class="htp-step">
+        <span class="htp-step-icon" data-icon="trophy" data-icon-size="22"></span>
+        <div><h4 data-i18n="howToPlayStep4Title"></h4><p data-i18n="howToPlayStep4Body"></p></div>
+      </div>
+      <div class="htp-step">
+        <span class="htp-step-icon" data-icon="star" data-icon-size="22"></span>
+        <div><h4 data-i18n="howToPlayStep5Title"></h4><p data-i18n="howToPlayStep5Body"></p></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn--primary btn--full" data-close-modal="modal-how-to-play" data-i18n="gotIt">فهمت، هيا نلعب</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="modal-overlay" id="modal-settings" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <button type="button" class="icon-btn modal-close" data-close-modal="modal-settings" data-icon="close" data-icon-size="18" aria-label="Close" data-i18n-aria-label="close"></button>
+    <h3 class="modal-title" id="settings-title" data-i18n="settingsTitle">الإعدادات</h3>
+
+    <div class="settings-group">
+      <label class="settings-label" data-i18n="settingsTimer">مدة السؤال</label>
+      <div class="chip-row" id="settings-timer-chips"></div>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-label" data-i18n="settingsCategoriesPerGame">عدد الفئات في اللعبة</label>
+      <div class="chip-row" id="settings-categories-chips"></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="toggle-row">
+        <label class="settings-label" for="settings-sound-toggle" data-i18n="settingsSound">المؤثرات الصوتية</label>
+        <label class="switch">
+          <input type="checkbox" id="settings-sound-toggle">
+          <span class="switch-track"></span>
+          <span class="switch-thumb"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-label" data-i18n="settingsLanguage">اللغة</label>
+      <div class="chip-row" id="settings-language-chips">
+        <button type="button" class="chip" data-settings-lang="ar" data-i18n="langSwitchAr">العربية</button>
+        <button type="button" class="chip" data-settings-lang="en" data-i18n="langSwitchEn">English</button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn--primary btn--full" data-close-modal="modal-settings" data-i18n="save">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Overwrite confirm modal is created dynamically via UI.confirmDialog -->
+
+<script src="js/core/storage.js"></script>
+<script src="js/core/translations.js"></script>
+<script src="js/core/i18n.js"></script>
+<script src="js/core/icons.js"></script>
+<script src="js/core/audio.js"></script>
+<script src="js/core/ui.js"></script>
+<script src="js/core/gameEngine.js"></script>
+<script src="js/pages/home.js"></script>
+</body>
+</html>
