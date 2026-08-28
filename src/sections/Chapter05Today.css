@@ -1,0 +1,32 @@
+.chapter.today {
+  padding-block: var(--space-3xl) var(--space-2xl);
+}
+
+.chapter.today .reveal {
+  transition-duration: 1.5s;
+}
+
+.today__lines {
+  text-align: center;
+  margin: var(--space-xl) auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 30rem;
+}
+
+.today__line {
+  font-size: clamp(1.3rem, 4.5vw, 1.85rem);
+  color: var(--champagne);
+}
+
+.today__photo {
+  max-width: 26rem;
+  margin: var(--space-2xl) auto;
+}
+
+.today__letter {
+  margin-top: var(--space-2xl);
+  display: flex;
+  justify-content: center;
+}

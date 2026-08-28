@@ -1,0 +1,123 @@
+.intro {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 20%, var(--espresso-800) 0%, var(--espresso-900) 70%);
+  padding: var(--space-xl) var(--space-md);
+  transition: opacity 1s var(--ease-cinematic);
+}
+
+.intro.is-leaving {
+  opacity: 0;
+}
+
+.intro__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 18vw rgba(0, 0, 0, 0.65);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro__content {
+  position: relative;
+  z-index: 1;
+  max-width: 36rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.intro__greeting {
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  color: var(--ivory);
+  opacity: 0;
+  animation: intro-in var(--dur-slow) var(--ease-cinematic) forwards;
+  animation-delay: 0.2s;
+}
+
+.intro__lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.intro__line {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 400;
+  color: var(--champagne);
+  opacity: 0;
+  animation: intro-in var(--dur-slow) var(--ease-cinematic) forwards;
+  animation-delay: calc(0.6s + var(--i) * 0.32s);
+}
+
+.intro__signoff {
+  font-size: clamp(1.4rem, 4.5vw, 2rem);
+  color: var(--ivory);
+  opacity: 0;
+  animation: intro-in var(--dur-slow) var(--ease-cinematic) forwards;
+  animation-delay: 2.4s;
+}
+
+.intro__cta {
+  margin-top: var(--space-sm);
+  padding: 0.95em 2.4em;
+  border-radius: 999px;
+  border: 1px solid rgba(233, 216, 190, 0.5);
+  color: var(--champagne);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: intro-in var(--dur-slow) var(--ease-cinematic) forwards;
+  animation-delay: 3s;
+  transition:
+    box-shadow var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    transform var(--dur-fast) var(--ease-soft);
+}
+
+.intro__cta:hover,
+.intro__cta:focus-visible {
+  border-color: var(--champagne);
+  box-shadow: 0 0 32px 2px rgba(233, 216, 190, 0.28);
+  transform: translateY(-1px);
+}
+
+.intro__cta:active {
+  transform: translateY(0);
+}
+
+@keyframes intro-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro__greeting,
+  .intro__line,
+  .intro__signoff,
+  .intro__cta {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

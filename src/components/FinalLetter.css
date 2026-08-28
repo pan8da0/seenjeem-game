@@ -1,0 +1,99 @@
+.final-letter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.final-letter__trigger {
+  font-size: 1.7rem;
+  color: var(--champagne);
+  padding: 0.6em 1.4em;
+  border: 1px solid rgba(233, 216, 190, 0.4);
+  border-radius: 999px;
+  transition:
+    box-shadow var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    transform var(--dur-fast) var(--ease-soft);
+}
+
+.final-letter__trigger:hover,
+.final-letter__trigger:focus-visible {
+  border-color: var(--champagne);
+  box-shadow: 0 0 28px 2px rgba(233, 216, 190, 0.22);
+  transform: translateY(-1px);
+}
+
+.final-letter__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.9s var(--ease-cinematic);
+  width: 100%;
+}
+
+.final-letter__panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.final-letter__panel-inner {
+  overflow: hidden;
+}
+
+.final-letter__envelope {
+  max-width: 30rem;
+  margin: var(--space-md) auto 0;
+  perspective: 1200px;
+}
+
+.final-letter__flap {
+  height: 28px;
+  background: linear-gradient(135deg, rgba(233, 216, 190, 0.16), rgba(233, 216, 190, 0.04));
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.9s var(--ease-cinematic) 0.1s;
+  opacity: 0.8;
+}
+
+.final-letter__panel.is-open .final-letter__flap {
+  transform: rotateX(-150deg);
+}
+
+.final-letter__page {
+  padding: var(--space-lg) var(--space-md);
+  background: rgba(233, 216, 190, 0.06);
+  border: 1px solid rgba(233, 216, 190, 0.18);
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.8s var(--ease-cinematic) 0.35s,
+    transform 0.8s var(--ease-cinematic) 0.35s;
+}
+
+.final-letter__panel.is-open .final-letter__page {
+  opacity: 1;
+  transform: none;
+}
+
+.final-letter__line {
+  font-size: clamp(1.15rem, 4vw, 1.5rem);
+  color: var(--champagne);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-letter__panel {
+    transition: grid-template-rows 0.3s linear;
+  }
+  .final-letter__flap {
+    transition: none;
+  }
+  .final-letter__page {
+    transition: opacity 0.3s linear;
+    transform: none;
+  }
+}

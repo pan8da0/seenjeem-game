@@ -1,0 +1,10 @@
+.chapter-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  text-align: center;
+}
+
+.chapter-heading__title {
+  font-size: clamp(2.4rem, 7vw, 4rem);
+}

@@ -1,0 +1,68 @@
+:root {
+  /* Type */
+  --font-display: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", cursive;
+
+  /* Spacing scale */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 2.75rem;
+  --space-xl: 4.5rem;
+  --space-2xl: 7rem;
+  --space-3xl: 10rem;
+
+  /* Layout */
+  --content-max: 640px;
+  --wide-max: 1200px;
+
+  /* Motion */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-slow: 1.4s;
+  --dur-med: 0.9s;
+  --dur-fast: 0.45s;
+
+  /* Intro / Today — dark espresso world */
+  --espresso-900: #14100c;
+  --espresso-800: #1c1611;
+  --espresso-700: #241d16;
+  --champagne: #e9d8be;
+  --champagne-soft: #d9c4a0;
+  --ivory: #fff9f0;
+
+  /* Chapter 01 — Chaos (bright, playful, scrapbook) */
+  --chaos-bg: #f6efe2;
+  --chaos-paper: #fffaf1;
+  --chaos-coral: #d97a5a;
+  --chaos-mustard: #c99a3f;
+  --chaos-teal: #5f7d74;
+  --chaos-ink: #2c241c;
+
+  /* Chapter 02 — Little You (sepia album) */
+  --childhood-bg: #e7dac2;
+  --childhood-paper: #f1e6d0;
+  --childhood-sepia: #7c6142;
+  --childhood-ink: #3a2f22;
+
+  /* Chapter 03 — Us (warm cream / dusty rose) */
+  --us-bg: #f3e4d8;
+  --us-rose: #c78d7c;
+  --us-peach: #e8bd9c;
+  --us-ink: #3c2c24;
+
+  /* Chapter 04 — You (ivory / blush / sage editorial) */
+  --you-bg: #fbf5ec;
+  --you-blush: #e7c6c1;
+  --you-sage: #a3b294;
+  --you-ink: #35302a;
+
+  /* Chapter 05 / ending — dark, calm, connects to intro */
+  --today-bg: #1a140f;
+  --today-ink: var(--champagne);
+
+  color-scheme: dark light;
+}

@@ -1,0 +1,33 @@
+.petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.petals__petal {
+  position: absolute;
+  top: 100%;
+  border-radius: 60% 40% 55% 45% / 55% 45% 55% 45%;
+  background: var(--you-blush);
+  opacity: 0.35;
+  animation: petal-drift linear infinite;
+}
+
+@keyframes petal-drift {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.35;
+  }
+  92% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-115vh) translateX(24px) rotate(120deg);
+    opacity: 0;
+  }
+}

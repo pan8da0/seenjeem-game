@@ -1,0 +1,64 @@
+.chaos__doodle {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  font-size: 2.5rem;
+  color: var(--chaos-coral);
+  opacity: 0.5;
+  font-family: var(--font-hand);
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+.chaos__intro {
+  text-align: center;
+  margin: var(--space-xl) auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.chaos__intro-line {
+  font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+}
+
+.chaos__scrapbook {
+  columns: 2;
+  column-gap: var(--space-md);
+  margin: var(--space-xl) 0;
+}
+
+@media (min-width: 640px) {
+  .chaos__scrapbook {
+    columns: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chaos__scrapbook {
+    columns: 4;
+  }
+}
+
+.chaos__photo {
+  break-inside: avoid;
+  margin-bottom: var(--space-lg);
+}
+
+.chaos__outro {
+  text-align: center;
+  margin-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.chaos__outro p.display {
+  font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+}
+
+.chaos__keep-going {
+  margin-top: var(--space-sm);
+  font-size: 1.6rem;
+  color: var(--chaos-coral);
+}

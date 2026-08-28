@@ -1,0 +1,131 @@
+.chapter.you {
+  position: relative;
+}
+
+.you__intro {
+  text-align: center;
+  margin: var(--space-xl) auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-width: 30rem;
+  position: relative;
+  z-index: 2;
+}
+
+.you__intro-line {
+  font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+}
+
+.you__editorial {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  padding-block: var(--space-lg);
+}
+
+.you__hero {
+  position: relative;
+  max-width: 34rem;
+}
+
+.you__floral {
+  position: absolute;
+  color: var(--you-sage);
+  opacity: 0.55;
+}
+
+.you__floral--hero {
+  top: -2.5rem;
+  right: -1.5rem;
+  width: 70px;
+  height: auto;
+}
+
+.you__offset {
+  max-width: 22rem;
+  width: 100%;
+}
+
+.you__offset--start {
+  margin-right: auto;
+}
+
+.you__offset--end {
+  margin-left: auto;
+}
+
+@media (min-width: 900px) {
+  .you__offset--start {
+    margin-left: 8%;
+  }
+  .you__offset--end {
+    margin-right: 8%;
+  }
+}
+
+.you__pair {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-md);
+  max-width: 44rem;
+  margin-inline: auto;
+  align-items: end;
+}
+
+.you__pair > *:last-child {
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 639px) {
+  .you__pair {
+    grid-template-columns: 1fr;
+  }
+  .you__pair > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.you__scroll {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 var(--space-md) var(--space-sm);
+  -webkit-overflow-scrolling: touch;
+}
+
+.you__scroll-item {
+  flex: 0 0 78%;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 640px) {
+  .you__scroll-item {
+    flex-basis: 42%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .you__scroll-item {
+    flex-basis: 28%;
+  }
+}
+
+.you__bridge {
+  text-align: center;
+  margin: var(--space-xl) auto var(--space-lg);
+  max-width: 26rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  position: relative;
+  z-index: 2;
+}
+
+.you__bridge-line {
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  opacity: 0.85;
+}

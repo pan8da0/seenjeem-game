@@ -1,0 +1,72 @@
+.chapter {
+  position: relative;
+  padding-block: var(--space-2xl) var(--space-xl);
+  overflow: hidden;
+  transition: background-color 1.2s var(--ease-soft);
+}
+
+.chapter.chaos {
+  background: var(--chaos-bg);
+  color: var(--chaos-ink);
+}
+
+.chapter.childhood {
+  background: var(--childhood-bg);
+  color: var(--childhood-ink);
+}
+
+.chapter.us {
+  background: var(--us-bg);
+  color: var(--us-ink);
+}
+
+.chapter.you {
+  background: var(--you-bg);
+  color: var(--you-ink);
+}
+
+.chapter.today {
+  background: var(--today-bg);
+  color: var(--today-ink);
+}
+
+.chapter-bridge {
+  position: relative;
+  min-height: 46vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.chapter-bridge__text {
+  font-size: clamp(1.35rem, 4.5vw, 1.9rem);
+  opacity: 0.88;
+  max-width: 24rem;
+}
+
+.chapter-bridge__text--emphasis {
+  margin-top: var(--space-md);
+  font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+}
+
+.chapter-bridge--chaos-to-childhood {
+  background: linear-gradient(to bottom, var(--chaos-bg), var(--childhood-bg));
+  color: var(--childhood-ink);
+}
+
+.chapter-bridge--childhood-to-us {
+  background: linear-gradient(to bottom, var(--childhood-bg), var(--us-bg));
+  color: var(--us-ink);
+}
+
+.chapter-bridge--us-to-you {
+  background: linear-gradient(to bottom, var(--us-bg), var(--you-bg));
+  color: var(--you-ink);
+}
+
+.chapter-bridge--you-to-today {
+  background: linear-gradient(to bottom, var(--you-bg), var(--today-bg));
+  color: var(--today-ink);
+}

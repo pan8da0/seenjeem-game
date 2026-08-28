@@ -1,0 +1,10 @@
+.empty-category {
+  text-align: center;
+  font-size: 1.5rem;
+  opacity: 0.55;
+  padding: var(--space-lg) var(--space-md);
+  border: 1px dashed currentColor;
+  border-radius: 4px;
+  max-width: 26rem;
+  margin-inline: auto;
+}

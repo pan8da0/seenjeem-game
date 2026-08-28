@@ -1,0 +1,38 @@
+.chapter.childhood .grain {
+  opacity: 0.09;
+}
+
+.chapter.childhood .reveal {
+  transition-duration: 1.6s;
+}
+
+.childhood__intro {
+  text-align: center;
+  margin: var(--space-xl) auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.childhood__intro-line {
+  font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+}
+
+.childhood__album {
+  columns: 2;
+  column-gap: var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+@media (min-width: 640px) {
+  .childhood__album {
+    columns: 3;
+  }
+}
+
+.childhood__photo {
+  break-inside: avoid;
+  margin-bottom: var(--space-lg);
+}

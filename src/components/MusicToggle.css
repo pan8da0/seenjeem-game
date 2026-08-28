@@ -1,0 +1,59 @@
+.music-toggle {
+  position: fixed;
+  left: var(--space-sm);
+  bottom: var(--space-sm);
+  z-index: 40;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(233, 216, 190, 0.1);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(233, 216, 190, 0.25);
+  color: var(--champagne);
+  transition:
+    background var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft);
+}
+
+.music-toggle:hover,
+.music-toggle:focus-visible {
+  background: rgba(233, 216, 190, 0.18);
+  border-color: rgba(233, 216, 190, 0.45);
+}
+
+.music-toggle__note {
+  font-size: 1.1rem;
+  opacity: 0.6;
+  transition: opacity var(--dur-fast) var(--ease-soft);
+}
+
+.music-toggle__note.is-playing {
+  opacity: 1;
+  animation: music-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes music-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle__note.is-playing {
+    animation: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .music-toggle {
+    left: var(--space-md);
+    bottom: var(--space-md);
+  }
+}

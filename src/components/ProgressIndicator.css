@@ -1,0 +1,23 @@
+.progress-indicator {
+  position: fixed;
+  right: var(--space-sm);
+  bottom: var(--space-sm);
+  z-index: 40;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--champagne);
+  opacity: 0.38;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  writing-mode: vertical-rl;
+  transition: opacity var(--dur-med) var(--ease-soft);
+}
+
+@media (min-width: 768px) {
+  .progress-indicator {
+    right: var(--space-md);
+    bottom: var(--space-md);
+  }
+}
