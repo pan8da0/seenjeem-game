@@ -1,3 +1,12 @@
+.chapter.chaos {
+  position: relative;
+}
+
+.chaos__paper {
+  z-index: 0;
+  opacity: 0.7;
+}
+
 .chaos__doodle {
   position: absolute;
   top: 8%;
@@ -8,9 +17,12 @@
   font-family: var(--font-hand);
   transform: rotate(8deg);
   pointer-events: none;
+  z-index: 1;
 }
 
 .chaos__intro {
+  position: relative;
+  z-index: 1;
   text-align: center;
   margin: var(--space-xl) auto;
   display: flex;
@@ -22,30 +34,68 @@
   font-size: clamp(1.3rem, 4.5vw, 1.9rem);
 }
 
+/* A scattered scrapbook table, not a grid: varied sizes, rotations, and a
+   couple of deliberate overlaps. */
 .chaos__scrapbook {
-  columns: 2;
-  column-gap: var(--space-md);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: start;
+  gap: var(--space-md) var(--space-sm);
   margin: var(--space-xl) 0;
+}
+
+.chaos__photo {
+  grid-column: span 3;
+}
+
+.chaos__photo--lg {
+  grid-column: span 5;
+}
+
+.chaos__photo--md {
+  grid-column: span 4;
+}
+
+.chaos__photo--sm {
+  grid-column: span 3;
+}
+
+.chaos__photo--overlap {
+  margin-top: calc(-1 * var(--space-lg));
+  z-index: 2;
 }
 
 @media (min-width: 640px) {
   .chaos__scrapbook {
-    columns: 3;
+    grid-template-columns: repeat(10, 1fr);
   }
-}
 
-@media (min-width: 1024px) {
-  .chaos__scrapbook {
-    columns: 4;
+  .chaos__photo--lg {
+    grid-column: span 4;
   }
-}
 
-.chaos__photo {
-  break-inside: avoid;
-  margin-bottom: var(--space-lg);
+  .chaos__photo--md {
+    grid-column: span 3;
+  }
+
+  .chaos__photo--sm {
+    grid-column: span 3;
+  }
+
+  .chaos__photo:nth-child(6n + 1) {
+    margin-left: 6%;
+  }
+
+  .chaos__photo:nth-child(6n + 4) {
+    margin-right: 6%;
+  }
 }
 
 .chaos__outro {
+  position: relative;
+  z-index: 1;
   text-align: center;
   margin-top: var(--space-xl);
   display: flex;
@@ -61,4 +111,28 @@
   margin-top: var(--space-sm);
   font-size: 1.6rem;
   color: var(--chaos-coral);
+}
+
+.chapter-bridge--chaos-to-childhood {
+  overflow: hidden;
+}
+
+.chapter-bridge__vintage {
+  opacity: 0;
+  animation: bridge-vintage-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 70%;
+}
+
+@keyframes bridge-vintage-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .chapter-bridge__vintage {
+    opacity: 0.6;
+    animation: none;
+  }
 }

@@ -1,4 +1,16 @@
+.chapter.us {
+  position: relative;
+  overflow: hidden;
+}
+
+.us__bloom-a,
+.us__bloom-b {
+  z-index: 0;
+}
+
 .us__intro {
+  position: relative;
+  z-index: 1;
   text-align: center;
   margin: var(--space-xl) auto;
   display: flex;
@@ -13,6 +25,7 @@
 
 .us__gallery {
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
@@ -27,25 +40,73 @@
   bottom: 0;
   width: 1px;
   background: linear-gradient(to bottom, transparent, var(--us-rose) 15%, var(--us-rose) 85%, transparent);
-  opacity: 0.35;
+  opacity: 0.3;
   pointer-events: none;
 }
 
-.us__solo {
-  max-width: 30rem;
+.us__gallery::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  margin-left: -2px;
+  background-image: radial-gradient(circle, var(--us-rose) 1.6px, transparent 2px);
+  background-size: 5px 88px;
+  background-repeat: repeat-y;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Slow, cinematic settle as photos enter — falls back to the ordinary
+   reveal fade when scroll-driven animations aren't supported. */
+.us__hero .photo-frame__box img,
+.us__solo .photo-frame__box img,
+.us__pair .photo-frame__box img {
+  transform: scale(1.08);
+  animation: us-settle linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+@keyframes us-settle {
+  to {
+    transform: scale(1);
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .us__hero .photo-frame__box img,
+  .us__solo .photo-frame__box img,
+  .us__pair .photo-frame__box img {
+    animation: none;
+    transform: none;
+  }
+}
+
+.us__hero {
+  max-width: 68rem;
   margin-inline: auto;
   width: 100%;
 }
 
-.us__solo:nth-of-type(even) {
-  margin-right: 0;
+.us__solo {
+  max-width: 32rem;
+  margin-inline: auto;
+  width: 100%;
+  position: relative;
+}
+
+.us__solo--overlap {
+  z-index: 2;
 }
 
 .us__pair {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-md);
-  max-width: 44rem;
+  max-width: 46rem;
   margin-inline: auto;
   width: 100%;
 }
@@ -59,14 +120,53 @@
   .us__pair > *:nth-child(2) {
     margin-top: var(--space-xl);
   }
+
+  .us__solo--overlap {
+    margin-top: calc(-1 * var(--space-2xl));
+    margin-left: 12%;
+  }
+}
+
+.chapter-bridge--us-to-you {
+  overflow: hidden;
+}
+
+.us__bridge-floral {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  width: 70px;
+  height: auto;
+  color: var(--you-sage);
+  opacity: 0;
+  animation: bridge-floral-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 60%;
+}
+
+@keyframes bridge-floral-in {
+  to {
+    opacity: 0.4;
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .us__bridge-floral {
+    opacity: 0.3;
+    animation: none;
+  }
 }
 
 @media (min-width: 1024px) {
-  .us__solo:nth-of-type(4n + 1) {
-    margin-right: 20%;
+  .us__solo:not(.us__solo--overlap):nth-of-type(4n + 1) {
+    margin-right: 22%;
   }
 
-  .us__solo:nth-of-type(4n + 3) {
-    margin-left: 20%;
+  .us__solo:not(.us__solo--overlap):nth-of-type(4n + 3) {
+    margin-left: 22%;
+  }
+
+  .us__hero {
+    max-width: 78rem;
   }
 }

@@ -1,5 +1,6 @@
 import { ExperienceProvider } from "./context/ExperienceContext";
 import { Intro } from "./components/Intro";
+import { IntroBridge } from "./components/IntroBridge";
 import { ProgressIndicator } from "./components/ProgressIndicator";
 import { MusicToggle } from "./components/MusicToggle";
 import { Chapter01Chaos } from "./sections/Chapter01Chaos";
@@ -16,6 +17,7 @@ export default function App() {
       <MusicToggle />
       <main>
         <Intro />
+        <IntroBridge />
         <Chapter01Chaos />
         <Chapter02Childhood />
         <Chapter03Us />

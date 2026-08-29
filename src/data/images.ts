@@ -31,17 +31,37 @@ type Overrides = Partial<
 // renders — it just gets a neutral alt and no caption/rotation. Add a new
 // photo by dropping it into src/assets/images/<category>/, running
 // `npm run optimize-images`, and optionally adding an entry below.
+// Several childhood photos were screenshotted from a phone carousel/album
+// view, which baked a black letterbox into the photo itself (varying
+// amounts of black top and/or bottom, occasionally a caption bar). Each
+// crop below is tuned by hand to that specific photo's letterbox — this is
+// a presentation-only crop (object-position + a taller/shorter box), the
+// source file in src/assets/images/ is never touched.
 const overrides: Overrides = {
   "childhood/leen-childhood-01": {
     alt: "Childhood photo of Leen laughing as a toddler",
     featured: true,
+    aspectRatio: "1170 / 1063",
+    objectPosition: "center 40%",
+  },
+  "childhood/leen-childhood-05": {
+    aspectRatio: "1242 / 1435",
+    objectPosition: "center 45%",
+  },
+  "childhood/leen-childhood-06": {
+    caption: "little Leen 🤍",
+    aspectRatio: "1242 / 1744",
+    objectPosition: "center 40%",
+  },
+  "childhood/leen-childhood-07": {
+    aspectRatio: "1242 / 1413",
+    objectPosition: "center 55%",
   },
   "childhood/leen-childhood-08-collage": {
     alt: "A small collage of childhood and teenage photos of Leen",
     caption: "little Leen 🤍",
-  },
-  "childhood/leen-childhood-06": {
-    caption: "little Leen 🤍",
+    aspectRatio: "1020 / 1324",
+    objectPosition: "center 45%",
   },
 
   "us/leen-us-01": {
@@ -70,24 +90,24 @@ const overrides: Overrides = {
   "her/leen-her-01": {
     alt: "Leen smiling in front of an old stone building",
     aspectRatio: "1169 / 1330",
-    objectPosition: "center 88%",
+    objectPosition: "center 55%",
   },
   "her/leen-her-05": {
     aspectRatio: "1169 / 1330",
-    objectPosition: "center 88%",
+    objectPosition: "center 60%",
   },
   "her/leen-her-06": {
     aspectRatio: "1169 / 1315",
-    objectPosition: "center 88%",
+    objectPosition: "center 55%",
   },
   "her/leen-her-07": {
     aspectRatio: "1169 / 1090",
-    objectPosition: "center 96%",
+    objectPosition: "center 50%",
   },
   "her/leen-her-08": {
     alt: "Leen smiling at an illuminated night market",
     aspectRatio: "1169 / 1140",
-    objectPosition: "center 60%",
+    objectPosition: "center 40%",
   },
   "her/leen-her-02": {
     alt: "Leen sitting by an ornate iron gate with a red flower in her hair",

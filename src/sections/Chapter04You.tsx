@@ -52,6 +52,8 @@ export function Chapter04You() {
 
   return (
     <section id="chapter-04" ref={sectionRef} className="chapter you">
+      <FloralAccent className="you__silhouette you__silhouette--left" flip />
+      <FloralAccent className="you__silhouette you__silhouette--right" />
       {herPhotos.length > 0 && <Petals />}
 
       <div className="container">
@@ -59,7 +61,7 @@ export function Chapter04You() {
 
         <div ref={introRef} className="you__intro reveal">
           {chapter04You.intro.map((line, i) => (
-            <p key={i} className="display you__intro-line">
+            <p key={i} className={`display you__intro-line ${i === 0 ? "you__intro-line--lead" : ""}`}>
               {line}
             </p>
           ))}
@@ -74,7 +76,7 @@ export function Chapter04You() {
               return (
                 <div key={key} className="you__hero container container--wide">
                   <FloralAccent className="you__floral you__floral--hero" />
-                  <PhotoFrame photo={recipe.photos[0]} variant="clean" priority />
+                  <PhotoFrame photo={recipe.photos[0]} variant="clean" priority className="you__hero-photo" />
                 </div>
               );
             }
@@ -85,6 +87,7 @@ export function Chapter04You() {
                   key={key}
                   className={`you__offset container container--wide ${alignEnd ? "you__offset--end" : "you__offset--start"}`}
                 >
+                  {ri % 4 === 1 && <FloralAccent className="you__floral you__floral--offset" flip={alignEnd} />}
                   <PhotoFrame photo={recipe.photos[0]} variant="clean" />
                 </div>
               );
@@ -115,7 +118,8 @@ export function Chapter04You() {
         </div>
       )}
 
-      <div className="container">
+      <div className="chapter-bridge chapter-bridge--you-to-today">
+        <FloralAccent className="you__bridge-floral" flip />
         <div ref={bridgeRef} className="you__bridge reveal">
           {chapter04You.bridge.map((line, i) => (
             <p key={i} className="display you__bridge-line">

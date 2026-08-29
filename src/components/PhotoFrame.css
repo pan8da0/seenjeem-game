@@ -1,6 +1,8 @@
 .photo-frame {
   position: relative;
   width: 100%;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--dur-fast) var(--ease-soft);
 }
 
 .photo-frame__box {
@@ -27,8 +29,6 @@
   background: var(--chaos-paper);
   padding: 10px 10px 34px;
   box-shadow: 0 14px 30px -12px rgba(44, 36, 28, 0.35);
-  transform: rotate(var(--tilt, 0deg));
-  transition: transform var(--dur-fast) var(--ease-soft);
 }
 
 .photo-frame--polaroid .photo-frame__box {
@@ -36,7 +36,8 @@
   background: #d8cbb5;
 }
 
-.photo-frame--polaroid::before {
+/* A small strip of paper tape, usable on any variant */
+.photo-frame--taped::before {
   content: "";
   position: absolute;
   top: -10px;
@@ -53,10 +54,12 @@
   );
   opacity: 0.8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 1;
 }
 
 @media (hover: hover) {
-  .photo-frame--polaroid:hover {
+  .photo-frame--polaroid:hover,
+  .photo-frame--album:hover {
     transform: rotate(0deg) scale(1.02);
   }
 }
@@ -66,7 +69,6 @@
   background: var(--childhood-paper);
   padding: 8px 8px 30px;
   box-shadow: 0 10px 26px -14px rgba(58, 47, 34, 0.45);
-  transform: rotate(var(--tilt, 0deg));
 }
 
 .photo-frame--album .photo-frame__box {

@@ -1,0 +1,44 @@
+/* Reusable, restrained decorative layers. Every texture here is meant to be
+   felt more than seen — supporting a chapter's mood without competing with
+   the photographs. Avoid raising opacities much beyond what's set here. */
+
+/* Fine paper fiber texture — warm album / scrapbook pages */
+.texture-paper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.06' numOctaves='3' seed='7'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.5'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+/* Heavier grain + faint scratches/dust, for the childhood album */
+.texture-vintage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='s'><feTurbulence type='turbulence' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23s)'/></svg>"),
+    repeating-linear-gradient(100deg, rgba(58, 47, 34, 0.05) 0px, transparent 1px, transparent 180px, rgba(58, 47, 34, 0.05) 182px);
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+}
+
+/* A single soft directional light source, anchored to a corner — the
+   restrained alternative to a centered gradient "blob". `--bloom-color`
+   and `--bloom-pos` are set per usage. */
+.light-bloom {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 50% at var(--bloom-pos, 85% 10%), var(--bloom-color, rgba(255, 255, 255, 0.4)) 0%, transparent 70%);
+  opacity: var(--bloom-opacity, 0.5);
+}
+
+/* Thin decorative rule, used for the Us chapter's understated timeline */
+.deco-line {
+  position: absolute;
+  background: linear-gradient(to bottom, transparent, currentColor 15%, currentColor 85%, transparent);
+  opacity: 0.25;
+  pointer-events: none;
+}

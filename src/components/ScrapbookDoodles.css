@@ -1,0 +1,71 @@
+.scrapbook-doodles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scrapbook-doodles__mark {
+  position: absolute;
+  color: var(--chaos-coral);
+  opacity: 0.3;
+}
+
+.scrapbook-doodles__mark--star {
+  width: 30px;
+  height: 30px;
+  top: 14%;
+  left: 6%;
+  transform: rotate(-8deg);
+}
+
+.scrapbook-doodles__mark--scribble {
+  width: 90px;
+  height: 24px;
+  top: 58%;
+  right: 4%;
+  color: var(--chaos-teal);
+  opacity: 0.28;
+}
+
+.scrapbook-doodles__mark--circle {
+  width: 64px;
+  height: 44px;
+  top: 82%;
+  left: 8%;
+  color: var(--chaos-mustard);
+  opacity: 0.25;
+  transform: rotate(6deg);
+}
+
+.scrapbook-doodles__tape {
+  position: absolute;
+  width: 70px;
+  height: 24px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(217, 154, 63, 0.28),
+    rgba(217, 154, 63, 0.28) 4px,
+    rgba(217, 154, 63, 0.18) 4px,
+    rgba(217, 154, 63, 0.18) 8px
+  );
+}
+
+.scrapbook-doodles__tape--a {
+  top: 32%;
+  right: 10%;
+  transform: rotate(-18deg);
+}
+
+.scrapbook-doodles__tape--b {
+  top: 70%;
+  right: 22%;
+  transform: rotate(12deg);
+}
+
+@media (max-width: 640px) {
+  .scrapbook-doodles__mark--scribble {
+    right: -2%;
+  }
+}

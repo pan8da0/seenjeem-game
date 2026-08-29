@@ -6,15 +6,39 @@
 }
 
 .final-letter__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
   font-size: 1.7rem;
   color: var(--champagne);
-  padding: 0.6em 1.4em;
+  padding: 0.55em 1.5em;
   border: 1px solid rgba(233, 216, 190, 0.4);
   border-radius: 999px;
+  animation: letter-breathe 4.5s ease-in-out infinite;
   transition:
     box-shadow var(--dur-fast) var(--ease-soft),
     border-color var(--dur-fast) var(--ease-soft),
     transform var(--dur-fast) var(--ease-soft);
+}
+
+.final-letter__trigger.is-open {
+  animation: none;
+}
+
+.final-letter__icon {
+  width: 22px;
+  height: 17px;
+  opacity: 0.85;
+}
+
+@keyframes letter-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(233, 216, 190, 0);
+  }
+  50% {
+    box-shadow: 0 0 24px 2px rgba(233, 216, 190, 0.16);
+  }
 }
 
 .final-letter__trigger:hover,
@@ -46,13 +70,24 @@
 }
 
 .final-letter__flap {
-  height: 28px;
-  background: linear-gradient(135deg, rgba(233, 216, 190, 0.16), rgba(233, 216, 190, 0.04));
+  position: relative;
+  height: 30px;
+  background: linear-gradient(135deg, rgba(233, 216, 190, 0.18), rgba(233, 216, 190, 0.05));
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   transform: rotateX(0deg);
   transition: transform 0.9s var(--ease-cinematic) 0.1s;
-  opacity: 0.8;
+  opacity: 0.85;
+}
+
+.final-letter__seal {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  opacity: 0.9;
 }
 
 .final-letter__panel.is-open .final-letter__flap {
@@ -60,6 +95,7 @@
 }
 
 .final-letter__page {
+  position: relative;
   padding: var(--space-lg) var(--space-md);
   background: rgba(233, 216, 190, 0.06);
   border: 1px solid rgba(233, 216, 190, 0.18);
@@ -67,11 +103,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
+  overflow: hidden;
   opacity: 0;
   transform: translateY(-8px);
   transition:
     opacity 0.8s var(--ease-cinematic) 0.35s,
     transform 0.8s var(--ease-cinematic) 0.35s;
+}
+
+.final-letter__page-texture {
+  opacity: 0.4;
 }
 
 .final-letter__panel.is-open .final-letter__page {
@@ -80,12 +121,16 @@
 }
 
 .final-letter__line {
+  position: relative;
   font-size: clamp(1.15rem, 4vw, 1.5rem);
   color: var(--champagne);
   text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .final-letter__trigger {
+    animation: none;
+  }
   .final-letter__panel {
     transition: grid-template-rows 0.3s linear;
   }

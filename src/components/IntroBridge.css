@@ -1,0 +1,32 @@
+.intro-bridge {
+  position: relative;
+  height: 42vh;
+  min-height: 20rem;
+  background: linear-gradient(to bottom, var(--espresso-900), var(--chaos-bg) 88%);
+  overflow: hidden;
+}
+
+.intro-bridge__stars {
+  opacity: 0.7;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+.intro-bridge__paper {
+  opacity: 0;
+  animation: bridge-paper-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 60%;
+}
+
+@keyframes bridge-paper-in {
+  to {
+    opacity: 0.35;
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .intro-bridge__paper {
+    opacity: 0.2;
+    animation: none;
+  }
+}

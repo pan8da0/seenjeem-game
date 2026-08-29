@@ -2,7 +2,7 @@ import { useState } from "react";
 import { intro } from "../data/content";
 import { useExperience } from "../context/ExperienceContext";
 import { useReducedMotion } from "../hooks/useReducedMotion";
-import { Particles } from "./Particles";
+import { Stars } from "./Stars";
 import "./Intro.css";
 
 export function Intro() {
@@ -14,7 +14,7 @@ export function Intro() {
     if (isLeaving) return;
     enter();
     setIsLeaving(true);
-    const delay = reducedMotion ? 50 : 900;
+    const delay = reducedMotion ? 50 : 1100;
     window.setTimeout(() => {
       document.getElementById("chapter-01")?.scrollIntoView({
         behavior: reducedMotion ? "auto" : "smooth",
@@ -24,7 +24,9 @@ export function Intro() {
 
   return (
     <section className={`intro ${isLeaving ? "is-leaving" : ""}`} aria-label="Introduction">
-      <Particles />
+      <div className="intro__edge" aria-hidden="true" />
+      <Stars variant="intro" />
+      <div className="intro__glow" aria-hidden="true" />
       <div className="intro__vignette" aria-hidden="true" />
       <div className="intro__content">
         <p className="intro__greeting display">{intro.greeting}</p>
@@ -38,7 +40,8 @@ export function Intro() {
         <p className="intro__signoff display">{intro.signOff}</p>
 
         <button type="button" className="intro__cta" onClick={handleOpen}>
-          {intro.cta}
+          <span className="intro__cta-shimmer" aria-hidden="true" />
+          <span className="intro__cta-label">{intro.cta}</span>
         </button>
       </div>
     </section>

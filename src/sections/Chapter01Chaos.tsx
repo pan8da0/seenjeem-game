@@ -5,9 +5,22 @@ import { useReveal } from "../hooks/useReveal";
 import { ChapterHeading } from "../components/ChapterHeading";
 import { PhotoFrame } from "../components/PhotoFrame";
 import { EmptyCategoryNotice } from "../components/EmptyCategoryNotice";
+import { ScrapbookDoodles } from "../components/ScrapbookDoodles";
 import "./Chapter01Chaos.css";
 
-const TILTS = [-6, 4, -3, 6, -5, 3, -4, 5, -6, 2, -3, 5];
+// Hand-tuned for ~8 photos so the page reads as a scattered scrapbook
+// rather than a grid: size + rotation + a few deliberate overlaps. Photos
+// beyond this list fall back to the base .chaos__photo sizing.
+const RECIPE = [
+  { size: "lg", rotate: -3 },
+  { size: "sm", rotate: 6, overlap: true },
+  { size: "sm", rotate: -5 },
+  { size: "md", rotate: 4 },
+  { size: "sm", rotate: -4 },
+  { size: "lg", rotate: 3 },
+  { size: "md", rotate: -6, overlap: true },
+  { size: "sm", rotate: 5 },
+];
 
 export function Chapter01Chaos() {
   const sectionRef = useChapterObserver<HTMLElement>(chapter01Chaos.number);
@@ -16,6 +29,8 @@ export function Chapter01Chaos() {
 
   return (
     <section id="chapter-01" ref={sectionRef} className="chapter chaos">
+      <div className="texture-paper chaos__paper" aria-hidden="true" />
+      <ScrapbookDoodles />
       <div className="chaos__doodle chaos__doodle--arrow" aria-hidden="true">
         ↴
       </div>
@@ -32,15 +47,18 @@ export function Chapter01Chaos() {
 
         {funnyPhotos.length > 0 ? (
           <div className="chaos__scrapbook">
-            {funnyPhotos.map((photo, i) => (
-              <PhotoFrame
-                key={photo.id}
-                photo={photo}
-                variant="polaroid"
-                rotation={photo.rotation ?? TILTS[i % TILTS.length]}
-                className="chaos__photo"
-              />
-            ))}
+            {funnyPhotos.map((photo, i) => {
+              const recipe = RECIPE[i % RECIPE.length];
+              return (
+                <PhotoFrame
+                  key={photo.id}
+                  photo={photo}
+                  variant="polaroid"
+                  rotation={photo.rotation ?? recipe.rotate}
+                  className={`chaos__photo chaos__photo--${recipe.size} ${recipe.overlap ? "chaos__photo--overlap" : ""}`}
+                />
+              );
+            })}
           </div>
         ) : (
           <EmptyCategoryNotice>( the chaotic photos will live here 🤍 )</EmptyCategoryNotice>
@@ -54,6 +72,7 @@ export function Chapter01Chaos() {
       </div>
 
       <div className="chapter-bridge chapter-bridge--chaos-to-childhood">
+        <div className="texture-vintage chapter-bridge__vintage" aria-hidden="true" />
         <p className="hand chapter-bridge__text">{chapter01Chaos.bridge}</p>
       </div>
     </section>

@@ -11,6 +11,8 @@ interface PhotoFrameProps {
   rotation?: number;
   /** Overrides the box's natural aspect ratio, e.g. "4 / 5". */
   aspectRatio?: string;
+  /** A small strip of paper tape at the top edge. Defaults on for polaroid. */
+  taped?: boolean;
 }
 
 export function PhotoFrame({
@@ -20,14 +22,16 @@ export function PhotoFrame({
   className = "",
   rotation,
   aspectRatio,
+  taped,
 }: PhotoFrameProps) {
   const ref = useReveal<HTMLDivElement>();
   const tilt = rotation ?? photo.rotation ?? 0;
+  const showTape = taped ?? variant === "polaroid";
 
   return (
     <figure
       ref={ref}
-      className={`photo-frame photo-frame--${variant} reveal ${className}`}
+      className={`photo-frame photo-frame--${variant} ${showTape ? "photo-frame--taped" : ""} reveal ${className}`}
       style={tilt ? ({ "--tilt": `${tilt}deg` } as React.CSSProperties) : undefined}
     >
       <div

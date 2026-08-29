@@ -8,6 +8,8 @@ import { music } from "../data/music";
 import { ChapterHeading } from "../components/ChapterHeading";
 import { PhotoFrame } from "../components/PhotoFrame";
 import { FinalLetter } from "../components/FinalLetter";
+import { Stars } from "../components/Stars";
+import { FloralAccent } from "../components/FloralAccent";
 import "./Chapter05Today.css";
 
 export function Chapter05Today() {
@@ -36,6 +38,9 @@ export function Chapter05Today() {
 
   return (
     <section id="chapter-05" ref={sectionRef} className="chapter today">
+      <div className="today__vignette" aria-hidden="true" />
+      <Stars variant="ending" className="today__stars" />
+      <FloralAccent className="today__fading-floral" flip />
       <div className="container">
         <ChapterHeading number={chapter05Today.number} title={chapter05Today.title} />
 

@@ -1,18 +1,48 @@
 .final-moment {
   position: relative;
-  min-height: 100svh;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  padding-bottom: var(--space-2xl);
+}
+
+.final-moment__stars {
+  z-index: 0;
+}
+
+.final-moment__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(45% 35% at 50% 35%, rgba(233, 216, 190, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.final-moment__floral {
+  position: absolute;
+  bottom: 4%;
+  left: -4%;
+  width: 22vw;
+  max-width: 12rem;
+  height: auto;
+  color: var(--you-sage);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.final-moment__beat {
+  position: relative;
+  z-index: 1;
+  min-height: 72vh;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2xl);
   text-align: center;
-  padding-block: var(--space-2xl);
 }
 
 .final-moment .reveal {
-  transition-duration: 1.8s;
+  transition-duration: 1.9s;
 }
 
 .final-moment__focus-line {
@@ -28,8 +58,10 @@
 }
 
 .final-moment__footer {
-  position: absolute;
-  bottom: var(--space-lg);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-block: var(--space-lg);
   font-size: 1.3rem;
   opacity: 0.6;
 }
